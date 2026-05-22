@@ -3,7 +3,6 @@
     "description": "A high-performance serverless worker for SDXL running unfiltered custom models.",
     "version": "1.0.0",
     "category": "Serverless",
-    "container_image": "rifaterdemsahin/display-binary-image:latest",
     "environment_variables": [
         {
             "key": "SAFETY_CHECKER",
