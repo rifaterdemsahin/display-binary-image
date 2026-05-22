@@ -1,25 +1,13 @@
 [
     {
         "input": {
-            "prompt": "An unfiltered, hyper-realistic cinematic portrait of an elven warrior, intricate detailed armor, 8k resolution, raw photography",
-            "negative_prompt": "blurry, low quality, distorted, deformed, bad anatomy",
+            "prompt": "An unfiltered, hyper-realistic cinematic portrait of an elven warrior, intricate detailed armor, 8k resolution",
+            "negative_prompt": "blurry, low quality, bad anatomy",
             "model_url": "https://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors",
             "width": 1024,
             "height": 1024,
             "num_inference_steps": 30,
             "guidance_scale": 7.0,
-            "safety_checker": false
-        }
-    },
-    {
-        "input": {
-            "prompt": "Cyberpunk city street at night, neon reflections in puddles, cyberpunk aesthetic, high detail, masterpiece",
-            "negative_prompt": "text, watermark, poor lighting, drawing, painting",
-            "model_url": "https://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors",
-            "width": 1024,
-            "height": 1024,
-            "num_inference_steps": 25,
-            "guidance_scale": 6.5,
             "safety_checker": false
         }
     }
