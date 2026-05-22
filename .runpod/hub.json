@@ -1,0 +1,72 @@
+{
+    "name": "Uncensored SDXL Serverless Worker",
+    "description": "A high-performance serverless worker for SDXL capable of running unfiltered custom models by disabling the default safety checker and utilizing attached network volumes for persistence.",
+    "version": "1.0.0",
+    "container_image": "runpod/worker-sdxl:2.1.0",
+    "category": "Serverless",
+    "environment_variables": [
+        {
+            "key": "SAFETY_CHECKER",
+            "value": "false",
+            "description": "Disables the default NSFW / black screen safety filter overlay",
+            "required": true
+        },
+        {
+            "key": "HF_HOME",
+            "value": "/workspace/cache/huggingface",
+            "description": "Redirects HuggingFace asset cache to the persistent network volume",
+            "required": true
+        }
+    ],
+    "volume_mount_path": "/workspace",
+    "default_gpu": "NVIDIA GeForce RTX 4090",
+    "min_disk": 10,
+    "input_schema": {
+        "prompt": {
+            "type": "string",
+            "description": "Main generation prompt text",
+            "required": true
+        },
+        "negative_prompt": {
+            "type": "string",
+            "description": "Concepts to exclude from the image",
+            "required": false,
+            "default": ""
+        },
+        "model_url": {
+            "type": "string",
+            "description": "Direct download link to a custom .safetensors model checkpoint",
+            "required": true
+        },
+        "width": {
+            "type": "integer",
+            "description": "Image width (Recommended 1024 for SDXL)",
+            "required": false,
+            "default": 1024
+        },
+        "height": {
+            "type": "integer",
+            "description": "Image height (Recommended 1024 for SDXL)",
+            "required": false,
+            "default": 1024
+        },
+        "num_inference_steps": {
+            "type": "integer",
+            "description": "Number of denoising steps",
+            "required": false,
+            "default": 30
+        },
+        "guidance_scale": {
+            "type": "float",
+            "description": "CFG scale (how closely to follow prompt text)",
+            "required": false,
+            "default": 7.0
+        },
+        "safety_checker": {
+            "type": "boolean",
+            "description": "Runtime safety checker fallback switch",
+            "required": false,
+            "default": false
+        }
+    }
+}
