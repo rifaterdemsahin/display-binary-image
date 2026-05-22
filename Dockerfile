@@ -1,5 +1,5 @@
 # Use the official RunPod SDXL worker as the base layer
-FROM runpod.io/worker-sdxl:2.1.0
+FROM ghcr.io/runpod/worker-sdxl:2.1.0
 
 # Set the working directory inside the container
 WORKDIR /
