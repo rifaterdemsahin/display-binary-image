@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to View an Image from Raw Binary Data</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .method-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ol, ul {
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0 0 0;
+            font-size: 0.95rem;
+            color: #1e40af;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .lang-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        code {
+            font-family: monospace;
+            background: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #0f172a;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>How to View an Image from Raw Binary Data</h1>
+            <p class="intro">To view an image from raw binary data, you need to convert it into a format that a web browser, operating system, or programming language can interpret. How you handle this depends on whether you want a quick, no-code solution or you are trying to display it via code.</p>
+        </header>
+
+        <main>
+            <section class="method-card">
+                <h2>Method 1: The Quick No-Code Way (Base64 Decoder)</h2>
+                <p>If you have the binary data as a text string (or if you can convert the raw binary to a Base64 string), you can use a free online converter.</p>
+                <ol>
+                    <li>Copy your binary/Base64 data.</li>
+                    <li>Go to an online tool like Base64 to Image converter (e.g., <a href="https://base64-to-image.com" target="_blank">base64-to-image.com</a> or <a href="https://codebeautify.org" target="_blank">codebeautify.org</a>).</li>
+                    <li>Paste the data into the box, and it will instantly render and let you download the image.</li>
+                </ol>
+            </section>
+
+            <section class="method-card">
+                <h2>Method 2: Using HTML / Web Browsers</h2>
+                <p>If you are building a website or just want to test it in a local <code>.html</code> file, you can embed the data directly into an image tag using a Data URL.</p>
+                <p>You will need to know the image type (e.g., PNG, JPEG). The syntax looks like this:</p>
+                
+                <div class="code-container">
+                    <span class="lang-badge">HTML</span>
+                    <pre><code>&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="Your Binary Image" /&gt;</code></pre>
+                </div>
+
+                <div class="note">
+                    <strong>Note:</strong> If your data is strictly raw binary (zeros and ones or byte arrays) rather than a Base64 string, you must convert it to Base64 first for the HTML method to work.
+                </div>
+            </section>
+
+            <section class="method-card">
+                <h2>Method 3: Using Programming Languages</h2>
+                <p>If you are working inside a development environment, you can use a script to reconstruct and save the image file.</p>
+
+                <h3>🐍 Python</h3>
+                <p>Python makes this incredibly easy using the PIL (Pillow) library.</p>
+                <div class="code-container">
+                    <span class="lang-badge">Python</span>
+                    <pre><code>import io
+from PIL import Image
+
+# Replace 'binary_data' with your actual variable containing the raw bytes
+binary_data = b'\x89PNG\r\n\x1a\n...' 
+
+# Convert binary data to an image
+image = Image.open(io.BytesIO(binary_data))
+
+# Show the image on your screen
+image.show()
+
+# Or save it to your computer
+image.save("output_image.png")</code></pre>
+                </div>
+
+                <h3>🟨 JavaScript (Node.js)</h3>
+                <p>If you are working on the backend with Node.js, you can write the buffer directly to a file:</p>
+                <div class="code-container">
+                    <span class="lang-badge">JavaScript</span>
+                    <pre><code>const fs = require('fs');
+
+// Replace with your actual binary buffer
+const binaryData = Buffer.from([...]); 
+
+fs.writeFileSync('output_image.jpg', binaryData);
+console.log('Image saved successfully!');</code></pre>
+                </div>
+            </section>
+
+            <section class="method-card">
+                <h2>Method 4: Using Linux / Command Line</h2>
+                <p>If you have a file containing the raw binary data (let's call it <code>image.bin</code>) and you know it's supposed to be a JPEG, you can often just rename the extension or copy it using the terminal:</p>
+                
+                <div class="code-container">
+                    <span class="lang-badge">Bash</span>
+                    <pre><code>cp image.bin image.jpg</code></pre>
+                </div>
+
+                <p>If it was actually stored as a Base64 encoded text file, you can decode it via terminal:</p>
+                <div class="code-container">
+                    <span class="lang-badge">Bash</span>
+                    <pre><code>base64 -d image_base64.txt > decoded_image.jpg</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
