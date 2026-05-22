@@ -1,14 +1,37 @@
 [
     {
+        "name": "Standard SDXL Test",
         "input": {
-            "prompt": "An unfiltered, hyper-realistic cinematic portrait of an elven warrior, intricate detailed armor, 8k resolution",
-            "negative_prompt": "blurry, low quality, bad anatomy",
+            "prompt": "A hyper-realistic cinematic portrait of an elven warrior, intricate detailed armor, piercing eyes, 8k resolution, masterpiece",
+            "negative_prompt": "blurry, low quality, bad anatomy, distorted",
             "model_url": "https://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors",
             "width": 1024,
             "height": 1024,
-            "num_inference_steps": 30,
-            "guidance_scale": 7.0,
-            "safety_checker": false
+            "num_inference_steps": 25,
+            "guidance_scale": 7.0
+        }
+    },
+    {
+        "name": "Fast Generation Test",
+        "input": {
+            "prompt": "A beautiful sunset over mountains, golden hour lighting, cinematic",
+            "model_url": "https://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors",
+            "width": 768,
+            "height": 768,
+            "num_inference_steps": 15,
+            "guidance_scale": 6.5
+        }
+    },
+    {
+        "name": "High Resolution Test",
+        "input": {
+            "prompt": "Intricate fantasy city with detailed architecture, ray tracing, photorealistic",
+            "negative_prompt": "watermark, text, low quality",
+            "model_url": "https://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors",
+            "width": 1536,
+            "height": 1024,
+            "num_inference_steps": 40,
+            "guidance_scale": 8.0
         }
     }
 ]
