@@ -1,23 +1,95 @@
 {
     "name": "Uncensored SDXL Serverless Worker",
-    "description": "A high-performance serverless worker for SDXL running unfiltered custom models.",
-    "version": "1.0.0",
+    "description": "High-performance serverless SDXL worker for custom, unfiltered model inference with persistent model caching.",
+    "version": "1.0.1",
     "category": "Serverless",
+    "volume_mount_path": "/workspace",
+    "default_gpu": "RTX 4090",
+    "min_disk": 50,
+    "min_memory": 24000,
     "environment_variables": [
         {
             "key": "SAFETY_CHECKER",
             "value": "false",
-            "description": "Disables the default NSFW block",
+            "description": "Disables NSFW safety checker",
             "required": true
         },
         {
             "key": "HF_HOME",
             "value": "/workspace/cache/huggingface",
-            "description": "Persistent caching path",
+            "description": "Hugging Face cache directory (persistent)",
             "required": true
         }
     ],
-    "volume_mount_path": "/workspace",
-    "default_gpu": "NVIDIA GeForce RTX 4090",
-    "min_disk": 10
+    "input_schema": {
+        "prompt": {
+            "type": "string",
+            "description": "Main image generation prompt",
+            "required": true,
+            "example": "hyper-realistic portrait of a warrior, intricate armor, 8k"
+        },
+        "model_url": {
+            "type": "string",
+            "description": "Direct download URL to .safetensors model checkpoint",
+            "required": true,
+            "example": "https://huggingface.co/model-name/resolve/main/model.safetensors"
+        },
+        "negative_prompt": {
+            "type": "string",
+            "description": "Concepts to exclude from generation",
+            "required": false,
+            "default": "",
+            "example": "blurry, low quality, distorted"
+        },
+        "width": {
+            "type": "integer",
+            "description": "Output image width (512-2048, multiple of 64)",
+            "required": false,
+            "default": 1024,
+            "minimum": 512,
+            "maximum": 2048
+        },
+        "height": {
+            "type": "integer",
+            "description": "Output image height (512-2048, multiple of 64)",
+            "required": false,
+            "default": 1024,
+            "minimum": 512,
+            "maximum": 2048
+        },
+        "num_inference_steps": {
+            "type": "integer",
+            "description": "Number of diffusion steps (higher = better quality, slower)",
+            "required": false,
+            "default": 30,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "guidance_scale": {
+            "type": "number",
+            "description": "Classifier-free guidance strength (higher = more prompt adherence)",
+            "required": false,
+            "default": 7.0,
+            "minimum": 1.0,
+            "maximum": 20.0
+        }
+    },
+    "output_schema": {
+        "status": {
+            "type": "string",
+            "description": "success or failed"
+        },
+        "image": {
+            "type": "string",
+            "description": "Base64-encoded JPEG image with data URI prefix"
+        },
+        "generation_params": {
+            "type": "object",
+            "description": "Echo of generation parameters used"
+        },
+        "error": {
+            "type": "string",
+            "description": "Error message if status is failed"
+        }
+    }
 }
