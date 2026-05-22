@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.1.1-runtime-ubuntu22.04
 # Prevent interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies including Python 3.11 and curl
+# Install system dependencies including Python 3.11, pip, curl, and git
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.11 \
     python3-pip \
@@ -33,9 +33,9 @@ ENV HF_HOME=/workspace/cache/huggingface
 # Create required configuration directory paths
 RUN mkdir -p /runpod /workspace/cache/huggingface
 
-# Copy configuration and handler scripts into place
-COPY hub.json /runpod/hub.json
-COPY tests.json /runpod/tests.json
+# Copy configuration files from the .runpod folder and the handler script into place
+COPY .runpod/hub.json /runpod/hub.json
+COPY .runpod/tests.json /runpod/tests.json
 COPY handler.py /handler.py
 
 # Execute the serverless runtime loop directly
