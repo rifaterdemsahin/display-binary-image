@@ -13,6 +13,18 @@ os.makedirs("/workspace/cache/huggingface", exist_ok=True)
 pipe = None
 current_model_url = None
 
+# ✅ FIX #1: Add startup logging function
+def log_startup():
+    """Log that the handler is ready"""
+    print("=" * 60)
+    print("✓ SDXL Worker Initialized")
+    print("=" * 60)
+    print("✓ CUDA available:", torch.cuda.is_available())
+    if torch.cuda.is_available():
+        print("✓ GPU:", torch.cuda.get_device_name(0))
+    print("✓ Ready for requests")
+    print("=" * 60)
+
 def download_model(url, target_path):
     """Download model from URL to persistent volume storage"""
     if os.path.exists(target_path):
@@ -23,7 +35,8 @@ def download_model(url, target_path):
     os.makedirs(os.path.dirname(target_path), exist_ok=True)
     
     try:
-        response = requests.get(url, stream=True, timeout=300)
+        # ✅ FIX #2: Increase timeout from 300 to 600 seconds
+        response = requests.get(url, stream=True, timeout=600)
         response.raise_for_status()
         
         total_size = int(response.headers.get('content-length', 0))
@@ -170,5 +183,7 @@ def handler(event):
         print(f"--> Unexpected error: {str(e)}")
         return {"error": f"Generation failed: {str(e)}", "status": "failed"}
 
+# ✅ FIX #3: Call startup logging before handler
 if __name__ == "__main__":
+    log_startup()
     runpod.serverless.start({"handler": handler})
